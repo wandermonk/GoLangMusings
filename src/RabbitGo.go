@@ -19,7 +19,6 @@ func server() {
 	conn, ch, q := getQueue()
 	defer conn.Close()
 	defer ch.Close()
-
 	msg := amqp.Publishing{
 		ContentType: "text/plain",
 		Body:        []byte("Hello RabbitMQ"),

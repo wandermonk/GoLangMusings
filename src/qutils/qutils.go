@@ -7,6 +7,8 @@ import (
 	"github.com/streadway/amqp"
 )
 
+const SensorListQueue = "SensorList"
+
 func GetChannel(url string) (*amqp.Connection, *amqp.Channel) {
 	conn, err := amqp.Dial(url)
 	failOnError(err, "Failed to establish connection")
@@ -16,7 +18,7 @@ func GetChannel(url string) (*amqp.Connection, *amqp.Channel) {
 	return conn, ch
 }
 
-func getQueue(name string, ch *amqp.Channel) *amqp.Queue {
+func GetQueue(name string, ch *amqp.Channel) *amqp.Queue {
 	q, err := ch.QueueDeclare(name, false, false, false, false, nil)
 	failOnError(err, "Failed to declare queue")
 

@@ -44,7 +44,7 @@ func client() {
 }
 
 func getQueue() (*amqp.Connection, *amqp.Channel, *amqp.Queue) {
-	conn, err := amqp.Dial("amqp://guest@localhost:5672")
+	conn, err := amqp.Dial("amqp://guest@localhost:15672")
 	failOnError(err, "failed connecting to RabbitMQ")
 	ch, err := conn.Channel()
 	failOnError(err, "failed opening a channel")

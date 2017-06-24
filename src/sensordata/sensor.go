@@ -33,10 +33,12 @@ func main() {
 	defer ch.Close()
 
 	dataQueue := qutils.GetQueue(*name, ch)
-	sensorQueue := qutils.GetQueue(qutils.SensorListQueue, ch)
+	//commenting the below code to allow fan-out exchange
+	//sensorQueue := qutils.GetQueue(qutils.SensorListQueue, ch)
 
+	//removed the queue name sensorQueue.Name
 	msg := amqp.Publishing{Body: []byte(*name)}
-	ch.Publish("", sensorQueue.Name, false, false, msg)
+	ch.Publish("amq.fanout", "", false, false, msg)
 
 	dur, _ := time.ParseDuration(strconv.Itoa(1000/int(*freq)) + "ms")
 	signal := time.Tick(dur)
